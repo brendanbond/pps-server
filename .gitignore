@@ -1,0 +1,21 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dependency directories
+pps-server/node_modules/
+node_modules/
+
+# dotenv environment variables file
+.env
+.env.*
+
+# local db data
+db/
+
+# build directories
+dist/

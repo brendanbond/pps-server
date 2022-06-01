@@ -1,0 +1,13 @@
+authtoken: 1hF5IcjcFrouxHyiclW2jh2C9T3_3Xk29PuGZjhgmK5vV5zyU
+tunnels:
+  local-server:
+    proto: http
+    hostname: bb-roucha-server-local.ngrok.io
+    addr: 127.0.0.1:3000
+    # -------------------------
+    # Additional options
+    # -------------------------
+    # auth: "username:password"
+    # host_header: rewrite
+    # inspect: true
+    # bind_tls: true
