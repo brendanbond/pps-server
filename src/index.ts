@@ -90,7 +90,7 @@ app.put('/todo', (req, res) => {
   });
 });
 
-const server = app.listen(Number(process.env.PORT) || 3000, () => {
+app.listen(Number(process.env.PORT) || 3000, () => {
   console.log(`Listening on port ${process.env.PORT || 3000}`);
 });
 
