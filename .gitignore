@@ -19,3 +19,6 @@ db/
 
 # build directories
 dist/
+
+# github actions
+.github/
