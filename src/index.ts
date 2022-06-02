@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import cron from 'node-cron';
 import { nanoid } from 'nanoid';
 import 'dotenv/config';
 
@@ -15,23 +16,6 @@ import {
   removeCompleteAndUpdatePinned,
 } from './helpers';
 
-let date = new Date().getTime();
-
-const dailyTodoPruning = setInterval(() => {
-  const now = new Date().getTime();
-  if (now - date > 86400000) {
-    updateItems(removeCompleteAndUpdatePinned, (err) => {
-      if (err) {
-        console.error(
-          'Error while removing completed and updating pinned items: ',
-          err
-        );
-      }
-      date = now;
-    });
-  }
-}, 5000);
-
 const app = express();
 
 app.use(express.json());
@@ -43,6 +27,7 @@ app.use((req, res, next) => {
     return next();
   }
   console.error('Unauthenticated user hit endpoint, will not continue');
+  return res.sendStatus(401);
 });
 
 app.get('/todo', (req, res) => {
@@ -105,11 +90,14 @@ app.put('/todo', (req, res) => {
   });
 });
 
-const server = app.listen(process.env.SERVER_PORT || 3000, () => {
-  console.log(`Listening on port ${process.env.SERVER_PORT || 3000}`);
+const server = app.listen(Number(process.env.PORT) || 3000, () => {
+  console.log(`Listening on port ${process.env.PORT || 3000}`);
 });
 
-process.on('SIGTERM', () => {
-  server.close();
-  clearInterval(dailyTodoPruning);
+cron.schedule('30 3 * * *', () => {
+  updateItems(removeCompleteAndUpdatePinned, (err) => {
+    if (err) {
+      console.error('Error during nightly prune: ', err);
+    }
+  });
 });
