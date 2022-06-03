@@ -119,7 +119,7 @@ export function removeCompleteAndUpdatePinned(items: Item[]) {
 }
 
 export function userIsAuthenticated(req: Request) {
-  if (req.header('X-Auth') === process.env.AUTHTOKEN) {
+  if (req.header('X-Auth') === process.env.AUTH_TOKEN) {
     return true;
   }
   return false;
