@@ -94,7 +94,7 @@ app.listen(Number(process.env.PORT) || 3000, () => {
   console.log(`Listening on port ${process.env.PORT || 3000}`);
 });
 
-cron.schedule('30 3 * * *', () => {
+cron.schedule('30 6 * * *', () => {
   updateItems(removeCompleteAndUpdatePinned, (err) => {
     if (err) {
       console.error('Error during nightly prune: ', err);
