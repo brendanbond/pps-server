@@ -15,7 +15,8 @@
     "develop": "NODE_ENV=development nodemon",
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "script": "ts-node"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
