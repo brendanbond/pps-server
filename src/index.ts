@@ -49,6 +49,7 @@ app.post('/todo', (req, res) => {
     description: payload.description,
     completed: false,
     pinned: false,
+    createdDate: new Date().toISOString(),
   };
 
   addItem(newTodo, (err) => {
