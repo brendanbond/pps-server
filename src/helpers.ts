@@ -115,7 +115,12 @@ export function removeCompleteAndUpdatePinned(items: Item[]) {
   console.log('removing completed items and updating pinned items....');
   return items
     .filter((item) => !item.completed || item.pinned)
-    .map((item) => ({ ...item, completed: false }));
+    .map((item) => {
+      if (item.pinned && !item.completed) {
+        return { ...item, createdDate: new Date().toISOString() };
+      }
+      return { ...item, completed: false };
+    });
 }
 
 export function userIsAuthenticated(req: Request) {
