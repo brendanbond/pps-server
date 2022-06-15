@@ -116,6 +116,9 @@ export function removeCompleteAndUpdatePinned(items: Item[]) {
   return items
     .filter((item) => !item.completed || item.pinned)
     .map((item) => {
+      if (item.pinned && !item.completed) {
+        return { ...item, createdDate: new Date().toISOString() };
+      }
       return { ...item, completed: false };
     });
 }
