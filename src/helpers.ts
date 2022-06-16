@@ -114,11 +114,24 @@ export function validateItem(item: any): item is Item {
 export function removeCompleteAndUpdatePinned(items: Item[]) {
   console.log('removing completed items and updating pinned items....');
   return items
-    .filter((item) => !item.completed || item.pinned)
+    .filter((item) => {
+      console.log('Item: ', item.description);
+      console.log('Item is complete? ', item.completed);
+      console.log('Item is pinned? ', item.pinned);
+      console.log('Item is kept? ', !item.completed || item.pinned);
+      return !item.completed || item.pinned;
+    })
     .map((item) => {
+      const shortDesc = `${item.description.slice(0, 12)}...`;
       if (item.pinned && !item.completed) {
+        console.log(
+          `Item "${shortDesc}" is pinned and not complete. Updating createdDate... `
+        );
         return { ...item, createdDate: new Date().toISOString() };
       }
+      console.log(
+        `Item "${shortDesc}" is complete. Updating completed status... `
+      );
       return { ...item, completed: false };
     });
 }
